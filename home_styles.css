@@ -4,8 +4,18 @@ body {
 }
 .signin_input {
   width: 128px;
+  margin: 10px;
 }
-
 .signin_input:focus {
-  border: 3px solid rgb(52, 162, 189);
+  border: 3px solid grey;
+}
+img {
+  float: right;
+  margin-right: 20%;
+}
+h1 {
+  margin-top: 8%;
+}
+h1, h2, form {
+  margin-left: 20%;
 }
