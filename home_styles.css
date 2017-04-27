@@ -1,0 +1,11 @@
+body {
+  background-color: rgb(47, 138, 222);
+  font-family: "courier new", sans-serif;
+}
+.signin_input {
+  width: 128px;
+}
+
+.signin_input:focus {
+  border: 3px solid rgb(52, 162, 189);
+}
