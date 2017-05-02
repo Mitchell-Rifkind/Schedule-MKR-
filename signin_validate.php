@@ -6,12 +6,33 @@
   </head>
   <body>
     <?php
+      use Aws\DynamoDb\DynamoDbClient;
 
       $email = $_POST["email"];
       $password = $_POST["password"];
 
+      $client = DynamoDbClient::factory(array(
+        'profile' => 'default',
+        'region' => Region::'us-east-1'
+      ));
 
+      $result = $client->putItem(array(
+        'TableName' => 'User_Sign_In',
+        'Item' => array(
+          'email' => array('S' => $email)
+          'password' => array('S' => $password)
+        )
+      ));
 
+      $user = $client->getItem(array(
+        'ConsistentRead' => true,
+        'TableName' => 'errors',
+        'Key' => array(
+          'email' => array('S' => $email)
+        )
+      ));
+
+      echo $user['Item']['email']['S'];
      ?>
   </body>
 </html>
