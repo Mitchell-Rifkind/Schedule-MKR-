@@ -32,7 +32,7 @@
         )
       ));
 
-      echo $user['Item']['email']['S'];
+      echo "Welcome" . $user['Item']['email']['S'];
      ?>
   </body>
 </html>
