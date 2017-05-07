@@ -8,15 +8,15 @@
     <?php
       require '/Applications/XAMPP/xamppfiles/htdocs/Schedule-MKR-/vendor/autoload.php';
       use Aws\DynamoDb\DynamoDbClient;
+      use Aws\DynamoDb\Marshaler;
 
       $email = $_POST["email"];
       $password = $_POST["password"];
 
       $client = DynamoDbClient::factory(array(
-
         'version' => 'latest',
         'profile' => 'default',
-        'region' => 'us-east-1'
+        'region'  => 'us-east-1'
       ));
 
       $result = $client->putItem(array(
@@ -27,15 +27,17 @@
         )
       ));
 
-      $user = $client->getItem(array(
+      $result = $client->getItem(array(
         'ConsistentRead' => true,
-        'TableName' => 'errors',
-        'Key' => array(
-          'email' => array('S' => $email)
+        'TableName' => 'User_Sign_In',
+        'Key'       => array(
+          'email'   => array('S' => $email)
         )
       ));
 
-      echo "Welcome" . $user['Item']['email']['S'];
+      echo "Welcome " . $result['Item']['email']['S'];
+
+      echo "\nInfo added successfully";
      ?>
   </body>
 </html>
