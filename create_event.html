@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Schedule MKR+</title>
+        <link rel="stylesheet" href="home_styles.css">
+    </head>
+<body>
+    <h1>Create an Event</h1>  
+    <h2>Log in or sign up below</h2>
+    <form class="signin" action="signin_validate.php" method="post">
+        <input class="signin_input" type="text" name="eName" placeholder="Event Name"> </br>
+        <div>
+            <input type = "radio" name = "day" value = "visa"/>Sunday        
+            <input type = "radio" name = "day" value = "visa"/>Monday
+            <input type = "radio" name = "day" value = "master"/>Tuesday
+            <input type = "radio" name = "day" value = "amex"/>Wednesday
+            <input type = "radio" name = "day" value = "amex"/>Thursday
+            <input type = "radio" name = "day" value = "amex"/>Friday
+            <input type = "radio" name = "day" value = "visa"/>Saturday
+        </div> </br>
+        <input class="signin_input" type="text" name="sTime" placeholder="Start Time"> </br>
+        <input class="signin_input" type="text" name="eTime" placeholder="End Tiime"> </br>
+        <input class="signin_input" type="text" name="details" placeholder="Details"> </br>
+        <input type="submit" value="submit">
+    </form>
+  </body>
+</html>
