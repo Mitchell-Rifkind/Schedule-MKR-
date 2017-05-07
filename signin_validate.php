@@ -13,13 +13,13 @@
 
       $client = DynamoDbClient::factory(array(
         'profile' => 'default',
-        'region' => Region::'us-east-1'
+        'region' => 'us-east-1'
       ));
 
       $result = $client->putItem(array(
         'TableName' => 'User_Sign_In',
         'Item' => array(
-          'email' => array('S' => $email)
+          'email'    => array('S' => $email),
           'password' => array('S' => $password)
         )
       ));
