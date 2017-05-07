@@ -6,12 +6,16 @@
   </head>
   <body>
     <?php
+      require '/Applications/XAMPP/xamppfiles/htdocs/Schedule-MKR-/vendor/autoload.php';
       use Aws\DynamoDb\DynamoDbClient;
 
       $email = $_POST["email"];
       $password = $_POST["password"];
 
       $client = DynamoDbClient::factory(array(
+        'key' => 'AKIAI6K6DFAL2EPNOT3A',
+        'secret' => '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'
+        'version' => 'latest',
         'profile' => 'default',
         'region' => 'us-east-1'
       ));
