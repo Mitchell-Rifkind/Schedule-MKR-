@@ -8,10 +8,16 @@
   <body>
     <img src="Mock_Schedule.png" alt="Mock Schedule">
     <h1>Schedule MKR+</h1>
-    <h2>Log in or sign up below</h2>
     <form class="signin" action="signin_validate.php" method="post">
       Email : <input class="signin_input" type="email" name="email" placeholder="Email"> </br>
       Password : <input class="signin_input" type="password" name="password" placeholder="Password">
+      <input type="submit" value="submit">
+    </form>
+
+    <h2>New user? Sign up below!</h2>
+    <form class="signin" action="signin_validate.php" method="post">
+      Email : <input class="signin_input" type="email" name="email_new" placeholder="Email"> </br>
+      Password : <input class="signin_input" type="password" name="password_new" placeholder="Password">
       <input type="submit" value="submit">
     </form>
   </body>
