@@ -6,50 +6,44 @@
   </head>
   <body>
     <?php
-      require '/Applications/XAMPP/xamppfiles/htdocs/Schedule-MKR-/vendor/autoload.php';
-      use Aws\DynamoDb\DynamoDbClient;
-      use Aws\DynamoDb\Marshaler;
-
-      $client = DynamoDbClient::factory(array(
-        'version' => 'latest',
-        'profile' => 'default',
-        'region'  => 'us-east-1'
-      ));
+    require '/Applications/XAMPP/xamppfiles/htdocs/Schedule-MKR-/Database_Functions.php';
 
       if (isset($_POST["email"]) && isset($_POST["password"])) {
         $email = $_POST["email"];
         $password = $_POST["password"];
 
-        $result = $client->getItem(array(
-          'ConsistentRead' => true,
-          'TableName' => 'User_Sign_In',
-          'Key'       => array(
-            'email'     => array('S' => $email)
-            )
-        ));
+        $result = fetchItem($email);
 
         if ($password === $result['Item']['password']['S']) {
-          echo "Access Granted";
+          $validation = "password_correct";
         } else {
-          echo "Access Denied";
+          $validation = "password_incorrect";
         }
 
-      } else if (isset($_POST["email_new"]) && isset($_POST["password_new"])) {
+      } else if (isset($_POST["email_new"]) && isset($_POST["password_new"]) && isset($_POST["password_confirm"])) {
         $email_new = $_POST["email_new"];
         $password_new = $_POST["password_new"];
+        $password_confirm = $_POST["password_confirm"];
 
-        $result = $client->putItem(array(
-          'TableName' => 'User_Sign_In',
-          'Item' => array(
-            'email'    => array('S' => $email_new),
-            'password' => array('S' => $password_new)
-          )
-        ));
-        echo "Welcome " . $email_new . ". Your account has been created";
+        $isNew = newEmail($email_new);
+
+        if ($isNew) {
+          if ($password_new !== $password_confirm) {
+            $validation = "password_confirm_fail";
+          } else {
+            storeItem($email_new, $password_new);
+            $validation = "successful_creation";
+            $email = $email_new;
+          }
+        } else {
+          $validation = "email_repeated";
+        }
 
       } else {
-        echo "No information has been entered";
+        $validation = "insufficient_fields";
       }
+
+      handle_login($validation);
 
      ?>
   </body>
