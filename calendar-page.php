@@ -3,6 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     <title> Calender </title>
+    <link rel="stylesheet" href="home_styles.css">
 
   </head>
   <body>
@@ -23,6 +24,32 @@
       <textarea rows="6" cols="20">
         Type event details here.
       </textarea>
+
+
+
+<!----------------------------------------------------------------------------->
+
+    <table id="schedule">
+      <tr>
+        <th>Sunday</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>thursday</th><th>Friday</th><th>Saturday</th>
+      </tr>
+      <?php
+        $check = 0;
+        for ($i=6; $i <= 12; $i+=1) {
+          ?>
+          <tr>
+            <td><?= $i ?>:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <?php
+          if ($i == 12 && $check != 1) {
+            $i = 0;
+            $check =1;
+          }
+        }
+
+       ?>
+    </table>
+
     </div>
   </body>
 </html>
