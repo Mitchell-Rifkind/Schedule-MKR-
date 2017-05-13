@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <title> Calender </title>
     <link rel="stylesheet" href="home_styles.css">
   </head>
   <body>
@@ -55,5 +56,25 @@
     </table>
 
     </div>
+      <table id="schedule">
+      <tr>
+        <th>Sunday</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>thursday</th><th>Friday</th><th>Saturday</th>
+      </tr>
+      <?php
+        $check = 0;
+        for ($i=6; $i <= 12; $i+=1) {
+          ?>
+          <tr>
+            <td><?= $i ?>:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <?php
+          if ($i == 12 && $check != 1) {
+            $i = 0;
+            $check =1;
+          }
+        }
+       ?>
+    </table>
+
   </body>
 </html>
