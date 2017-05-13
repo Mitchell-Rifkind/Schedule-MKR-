@@ -6,36 +6,45 @@
   </head>
   <body>
     <?php
-      require '/Applications/XAMPP/xamppfiles/htdocs/Schedule-MKR-/vendor/autoload.php';
-      use Aws\DynamoDb\DynamoDbClient;
+    require '/Applications/XAMPP/xamppfiles/htdocs/Schedule-MKR-/Database_Functions.php';
 
-      $email = $_POST["email"];
-      $password = $_POST["password"];
+      if (isset($_POST["email"]) && isset($_POST["password"])) {
+        $email = $_POST["email"];
+        $password = $_POST["password"];
 
-      $client = DynamoDbClient::factory(array(
+        $result = fetchItem($email);
 
-        'version' => 'latest',
-        'profile' => 'default',
-        'region' => 'us-east-1'
-      ));
+        if ($password === $result['Item']['password']['S']) {
+          $validation = "password_correct";
+        } else {
+          $validation = "password_incorrect";
+        }
 
-      $result = $client->putItem(array(
-        'TableName' => 'User_Sign_In',
-        'Item' => array(
-          'email'    => array('S' => $email),
-          'password' => array('S' => $password)
-        )
-      ));
+      } else if (isset($_POST["email_new"]) && isset($_POST["password_new"]) && isset($_POST["password_confirm"])) {
+        $email_new = $_POST["email_new"];
+        $password_new = $_POST["password_new"];
+        $password_confirm = $_POST["password_confirm"];
 
-      $user = $client->getItem(array(
-        'ConsistentRead' => true,
-        'TableName' => 'errors',
-        'Key' => array(
-          'email' => array('S' => $email)
-        )
-      ));
+        $isNew = newEmail($email_new);
 
-      echo "Welcome" . $user['Item']['email']['S'];
+        if ($isNew) {
+          if ($password_new !== $password_confirm) {
+            $validation = "password_confirm_fail";
+          } else {
+            storeItem($email_new, $password_new);
+            $validation = "successful_creation";
+            $email = $email_new;
+          }
+        } else {
+          $validation = "email_repeated";
+        }
+
+      } else {
+        $validation = "insufficient_fields";
+      }
+
+      handle_login($validation);
+
      ?>
   </body>
 </html>
