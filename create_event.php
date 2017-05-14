@@ -5,7 +5,6 @@
         <title>Schedule MKR+</title>
         <link rel="stylesheet" href="home_styles.css">
         <script type="text/javascript" src="JS_Functions_Login.js"></script>
-
     </head>
 <body>
     <h1>Create an Event</h1>
@@ -21,9 +20,9 @@
             <input type = "checkbox" name="friday" value = "friday"/>Friday
             <input type = "checkbox" name="saturday" value = "saturday"/>Saturday
         </div> </br>
-        Start Time:             End Time:
+        Start Time:   &nbsp; End Time:
         <div>
-            <select name = "sHour" size = "4" multiple = "multiple" id = "sHour">
+            <select name = "sHour" size = "4" multiple = "multiple">
                 <optgroup label = "Hour">
                     <option selected = "selected">6 AM</option>
                     <option>7 AM</option>
@@ -46,7 +45,11 @@
                     <option>12 PM</option>
                 </optgroup>
             </select>
-
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
             <select name = "eHour" size = "4" multiple = "multiple">
                 <optgroup label = "Hour">
                     <option selected = "selected">6 AM</option>
