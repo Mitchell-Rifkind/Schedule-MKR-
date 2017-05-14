@@ -53,3 +53,11 @@ input[type=submit]:hover {
 input[type=submit]:focus {
   outline: none;
 }
+.schedule {
+  margin-left: auto;
+  margin-right: auto;
+}
+#eachHour td {
+  background-color: rgb(77, 97, 99);
+  width: 13%;
+}

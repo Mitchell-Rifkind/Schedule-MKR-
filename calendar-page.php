@@ -1,29 +1,60 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="home_styles.css">
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <meta charset="utf-8">
+    <title></title>
     <title> Calender </title>
-
+    <link rel="stylesheet" href="home_styles.css">
   </head>
   <body>
-    <?php session_start(); ?>
-    <h2>Welcome <?= $_SESSION["email"]; ?></h2>
-    <div Calender>
-      <iframe src="https://docs.google.com/spreadsheets/d/1OMBF888I97N6cMlp3gJPU4VDj8U4RFxZ1IV4bAQNqz4/pubhtml?gid=0&single=true" width ="800" height="800">
-      </iframe>
-    </div>
-    <div Logout>
-      <input type="submit" value="Logout"/>
 
-    </div>
-    <div Create New Event +>
-      <input type="submit" value="Create New Event +" />
-    </div>
-    <div Event box>
-      <textarea rows="6" cols="20">
-        Type event details here.
-      </textarea>
+    <?php
+      $details = "Web Programming";
+      $time = (18, 20);
+      $days = ("Wednesday", "Friday");
+
+      class event {
+        public $start;
+        public $end;
+        public $days;
+        public $details;
+
+        public function __construct($start, $end, $days, $details) {
+          $this->start = $start;
+          $this->end = $end;
+          $this->days = $days;
+        }
+      }
+
+     ?>
+
+    <table class="schedule">
+      <tr>
+        <th></th><th>Sunday</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th>
+      </tr>
+      <?php
+        $period = "a.m.";
+        $check = 0;
+
+        for ($i=6; $i <= 12; $i++) {
+          if ($i == 12 && $period === "a.m.") {
+            $period = "p.m.";
+          } elseif ($i == 12 && $period == "p.m.") {
+            $period = "a.m.";
+          }
+          ?>
+          <tr id="eachHour">
+            <th id="time"><?= $i ?>:00 <?= $period ?></th><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <?php
+          if ($i == 12 && $check == 0) {
+            $i = 0;
+            $check = 1;
+          }
+        }
+       ?>
+    </table>
+
     </div>
       <table id="schedule">
       <tr>
@@ -45,5 +76,5 @@
        ?>
     </table>
 
-  </body> 
+  </body>
 </html>
