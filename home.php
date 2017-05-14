@@ -18,6 +18,10 @@
         $message = $_POST['login_message'];
         ?> <h2><?= $message ?></h2><?php
       }
+      if (isset($_POST['sign_out'])) {
+        unset($_SESSION["email"]);
+        session_destroy();
+      }
 
     ?>
 

@@ -42,5 +42,5 @@ function missingFieldAlert() {
   alert("Not all necessary fields have been entered. Fill in the boxes highlighted in red.")
 }
 function toCalender() {
-  window.location="http://localhost/Schedule-MKR-/calendar-page.php"
+  window.location = "calendar-page.php";
 }

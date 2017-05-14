@@ -2,79 +2,75 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
     <title> Calender </title>
     <link rel="stylesheet" href="home_styles.css">
   </head>
   <body>
 
     <?php
-      $details = "Web Programming";
-      $time = (18, 20);
-      $days = ("Wednesday", "Friday");
+      require '/Applications/XAMPP/xamppfiles/htdocs/Schedule-MKR-/Functions_DBConnection.php';
+      require '/Applications/XAMPP/xamppfiles/htdocs/Schedule-MKR-/class_definitions.php';
+      $email = $_SESSION["email"];
+      ?>
 
-      class event {
-        public $start;
-        public $end;
-        public $days;
-        public $details;
+      <h2 id="calendar_greeting">Welcome <?= $email ?></h2>
 
-        public function __construct($start, $end, $days, $details) {
-          $this->start = $start;
-          $this->end = $end;
-          $this->days = $days;
-        }
+    <?php
+
+      $events_raw = fetchEvents($email);
+      $events_ready = array();
+      $days_temp = array();
+      $days_unique = array();
+
+      $events_total = eventsTotal($email);
+
+      for ($i=0; $i < $events_total; $i++) {
+        $temp_obj = new Event($events_raw[$i][1], $events_raw[$i][2], $events_raw[$i][3], $events_raw[$i][4], $events_raw[$i][5], $events_raw[$i][6]);
+
+        array_push($events_ready, $temp_obj);
       }
 
-     ?>
+      $week = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+      $i = 0;
 
-    <table class="schedule">
-      <tr>
-        <th></th><th>Sunday</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th>
-      </tr>
-      <?php
-        $period = "a.m.";
-        $check = 0;
 
-        for ($i=6; $i <= 12; $i++) {
-          if ($i == 12 && $period === "a.m.") {
-            $period = "p.m.";
-          } elseif ($i == 12 && $period == "p.m.") {
-            $period = "a.m.";
-          }
-          ?>
-          <tr id="eachHour">
-            <th id="time"><?= $i ?>:00 <?= $period ?></th><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-          </tr>
-          <?php
-          if ($i == 12 && $check == 0) {
-            $i = 0;
-            $check = 1;
-          }
-        }
-       ?>
-    </table>
+      for($i = 0; $i < 7; $i++) {
+        $day = $week[$i];
+        ?>
 
-    </div>
-      <table id="schedule">
-      <tr>
-        <th>Sunday</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>thursday</th><th>Friday</th><th>Saturday</th>
-      </tr>
-      <?php
-        $check = 0;
-        for ($i=6; $i <= 12; $i+=1) {
-          ?>
-          <tr>
-            <td><?= $i ?>:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-          </tr>
-          <?php
-          if ($i == 12 && $check != 1) {
-            $i = 0;
-            $check =1;
+          <h2> <?= $day ?></h2>
+          <hr>
+
+        <?php
+        for ($j=0; $j < $events_total; $j++) {
+          if (in_array($day, $events_ready[$j]->days)) {
+            ?>
+            <div class="events">
+              <p>
+                <span id="eventName"><?= $events_ready[$j]->name ?></span>
+                <strong>Start time : </strong>
+                <?= $events_ready[$j]->start ?>
+                <strong>End time : </strong>
+                <?= $events_ready[$j]->end ?>
+                <strong>Details : </strong>
+                <?= $events_ready[$j]->details ?>
+              </p>
+            </div>
+            <hr>
+            <?php
           }
         }
-       ?>
-    </table>
 
+      }
+
+      ?>
+      <form action="create_event.php" class="newEvent" onsubmit="endSession();">
+        <input type="hidden" name="sign_out" value="set">
+        <input type="submit" value="Add a new event" />
+      </form>
+      <form action="home.php" class="newEvent">
+        <input type="submit" value="Log out" />
+      </form>
+    </table>
   </body>
 </html>

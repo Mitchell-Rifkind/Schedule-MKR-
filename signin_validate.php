@@ -6,13 +6,13 @@
   </head>
   <body>
     <?php
-    require '/Applications/XAMPP/xamppfiles/htdocs/Schedule-MKR-/Database_Functions.php';
+    require '/Applications/XAMPP/xamppfiles/htdocs/Schedule-MKR-/Functions_DBConnection.php';
 
       if (isset($_POST["email"]) && isset($_POST["password"])) {
         $email = $_POST["email"];
         $password = $_POST["password"];
 
-        $result = fetchItem($email);
+        $result = fetchEmail($email);
 
         if ($password === $result['Item']['password']['S']) {
           $validation = "password_correct";
@@ -31,7 +31,7 @@
           if ($password_new !== $password_confirm) {
             $validation = "password_confirm_fail";
           } else {
-            storeItem($email_new, $password_new);
+            storeEmail($email_new, $password_new);
             $validation = "successful_creation";
             $email = $email_new;
           }
