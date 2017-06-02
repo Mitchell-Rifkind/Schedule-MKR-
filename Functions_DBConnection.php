@@ -117,6 +117,23 @@
 
       }
 
+      /*
+      function removeEvent ($$eName) { // Delete an event via the event name
+        $email = $_SESSION["email"];
+
+
+
+        $result = $GLOBALS['client']->deleteItem(array(
+          'TableName' => 'User_Events',
+          'Item' => array(
+            'email' => array('S' => $email),
+            'event_no'   => array('S' => $event_no)
+          )
+        ));
+
+      }
+      */
+
       function storeEmail($email_new, $password_new) { // Add an email and password as a new item to the database
         $result = $GLOBALS['client']->putItem(array(
           'TableName' => 'User_Sign_In',
